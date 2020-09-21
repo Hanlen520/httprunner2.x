@@ -44,6 +44,8 @@ hrun --startproject httprunner2.x
 ### 工程使用到httprunner框架的相关技术
 ##### charles/Fiddler录制脚本使用har2case命令生成json/yaml测试用例文件
 - 完整的用例结构(yaml&json)
+- - har2case -y 支持将har数据文件生成yaml格式的测试用例，默认是json格式
+- - 所以在utils工具类中写了两个方法，支持yaml与json互转
 - 测试用例分层
 - 测试用例集
 - 重复运行测试用例：testcase中插入times，与name同级
