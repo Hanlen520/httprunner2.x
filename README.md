@@ -26,19 +26,41 @@ httprunner/hrun -h
  --prettify	：美化json格式
 ```
 
-### 初始化工程
+### 初始化工程目录介绍
 ```
 hrun -h 查看帮助命令
 hrun --startproject httprunner2.x
 初始化工程后：
 - api		 # 测试用例
 - reports    # 测试报告
+- templates  # html报告模板
 - testcases  # 用例步骤
 - testsuites # 测试套件
 - debugtalk.py # 热处理文件，可以自定函数在脚本中${func_name}引用
 - .env  # 存放了用户数据，如账户密码/请求地址等公共参数
-
+- utils 工具包
 ```
+
+### 工程使用到httprunner框架的相关技术
+##### charles/Fiddler录制脚本使用har2case命令生成json/yaml测试用例文件
+- 完整的用例结构(yaml&json)
+- 测试用例分层
+- 测试用例集
+- 重复运行测试用例：testcase中插入times，与name同级
+- 跳过用例skip/skipIf/skipUnless
+##### 参数化与数据驱动
+- extract提取content返回对象
+- extract提取参数做上下文接口数据关联
+- variables变量声明与引用
+- 辅助函数debugtalk.py
+- hook机制
+- - setup_hooks
+- - teardown_hooks
+- 环境变量.env
+- 外部如何引用csv数据
+##### 测试报告ExtentReport
+##### locust性能测试
+
 
 ### Jinja2生成报告介绍
 - httprunner1.x中有一个extent_report_template，类同allure漂亮的测试报告
@@ -115,29 +137,3 @@ def gen_html_report(summary, report_template=None, report_dir=None, report_file=
 
     return report_path
 ```
-### 本项目工程目录介绍
-- api/testcases/testsuites是hrun快速生成的工程目录
-- logs是使用--save-tests参数生成的json数据文件
-- report_template_example 用来展示httprunner2.x三种不同的报告模版生成的报告文件
-- utils 工具包
-- debugtalk.py 热处理文件
-
-##### 工程使用到httprunner框架的相关技术
-###### charles/Fiddler录制脚本使用har2case命令生成json/yaml测试用例文件
-- 完整的用例结构(yaml&json)
-- 测试用例分层
-- 测试用例集
-- 重复运行测试用例：testcase中插入times，与name同级
-- 跳过用例skip/skipIf/skipUnless
-###### 参数化与数据驱动
-- extract提取content返回对象
-- extract提取参数做上下文接口数据关联
-- variables变量声明与引用
-- 辅助函数debugtalk.py
-- hook机制
-- - setup_hooks
-- - teardown_hooks
-- 环境变量.env
-- 外部如何引用csv数据
-###### 测试报告ExtentReport
-###### locust性能测试
