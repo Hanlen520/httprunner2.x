@@ -6,11 +6,9 @@ httprunner2.x主要是对unittest测试框架予以封装重构组织测试用�
 升级之后的httprunner3.x版本更是支持pytest测试框架且集成allure！
 ```
 
-### hrun支持命令行CLI运行脚本
+### 支持CLI运行脚本
 ```
-httprunner/hrun -h
-
-可见CLI支持的参数，见名知意：该框架支持哪些功能：
+httprunner/hrun -h  #可见CLI支持的参数，见名知意：该框架支持哪些功能：
 
 --startproject STARTPROJECT ：用于快速创建一个工程，默认生成api\testcases\testsuites目录
 
@@ -36,40 +34,41 @@ hrun --startproject httprunner2.x
 - templates  # html报告模板
 - testcases  # 用例步骤
 - testsuites # 测试套件
-- debugtalk.py # 热处理文件，可以自定函数在脚本中${func_name}引用
-- .env  # 存放了用户数据，如账户密码/请求地址等公共参数
-- utils 工具包
+- debugtalk.py # 热处理文件，可以自定函数在脚本中${func_name()}引用
+- .env  # 存放数据的全局配置文件，如账户密码/请求地址等公共参数；
+- utils 工具包：可以用来做一些数据库操作、发送测试报告邮件
+- config 新增目录：用于区分执行环境使用，在httprunner3.x会用得上
 ```
 
-### 工程使用到httprunner框架的相关技术
-##### charles/Fiddler录制脚本使用har2case命令生成json/yaml测试用例文件
-- 完整的用例结构(yaml&json)
+### httprunner框架技术
+##### 完整的用例结构(yaml&json)
+- charles/Fiddler录制脚本使用har2case命令生成json/yaml测试用例文件
 - - har2case -y 支持将har数据文件生成yaml格式的测试用例，默认是json格式
 - - 所以在utils工具类中写了两个方法，支持yaml与json互转
 - 测试用例分层
 - 测试用例集
 - 重复运行测试用例：testcase中插入times，与name同级
-- 跳过用例skip/skipIf/skipUnless
+- 跳过用例skip/skipIf/skipUnless,与name同级
 ##### 参数化与数据驱动
 - extract提取content返回对象
 - extract提取参数做上下文接口数据关联
 - variables变量声明与引用
 - 辅助函数debugtalk.py
-- hook机制
-- - setup_hooks
-- - teardown_hooks
 - 环境变量.env
 - 外部如何引用csv数据
+##### hook机制
+- - setup_hooks
+- - teardown_hooks
 ##### 测试报告ExtentReport
-##### locust性能测试
+##### 集成locust性能测试
 
 
-### Jinja2生成报告介绍
+### Jinja2报告模版介绍
 - httprunner1.x中有一个extent_report_template，类同allure漂亮的测试报告
 - httprunner2.x默认会使用report_template.html模版的测试报告
 - httprunner3.x已经支持allure测试报告的输出了，不过需要有allure-pytest/pytest-html插件
-```python
 - - extent拿1.x版本的扩展目录在2.x应用，选择2.4.3的版本；需要修改源码：
+```python
 
 def gen_html_report(summary, report_template=None, report_dir=None, report_file=None):
     """ render html report with specified report name and template
