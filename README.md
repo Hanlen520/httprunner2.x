@@ -35,7 +35,7 @@ hrun --startproject httprunner2.x
 - testcases  # 用例步骤
 - testsuites # 测试套件
 - debugtalk.py # 热处理文件，可以自定函数在脚本中${func_name()}引用
-- .env  # 存放数据的全局配置文件，如账户密码/请求地址等公共参数；
+- .env  # 工程根目录下：存放数据的全局配置文件，如账户密码/请求地址等公共参数；
 - utils 工具包：可以用来做一些数据库操作、发送测试报告邮件
 - config 新增目录：用于区分执行环境使用，在httprunner3.x会用得上
 ```
